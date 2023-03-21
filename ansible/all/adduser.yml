@@ -1,0 +1,25 @@
+---
+- name: Add sysadmin user
+  user:
+    name: sysadmin
+    shell: /bin/bash
+    password: $6$mIteRdOoiXyGl4g6$FpZAv2DCM8K7HB.Q9Mx6IC/t3s8UdzW1/93bgNuTe5ZKigTMt9RlWLVYQjv09f1SKkyuXhJ419oP413nxm/rv0
+
+- name: Add sysadmin to sudo group
+  user:
+    name: sysadmin
+    groups: sudo
+    append: yes
+
+- name: Create tldr .local directory
+  file:
+    path: /home/sysadmin/.local/share/tldr
+    state: directory
+    owner: sysadmin
+    group: sysadmin
+    mode: 0775
+
+- name: Run tldr -u for sysadmin
+  shell:
+    cmd: sudo su - sysadmin -c "tldr -u"
+

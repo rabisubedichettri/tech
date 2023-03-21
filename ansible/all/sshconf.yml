@@ -1,0 +1,33 @@
+---
+- name: Allow password login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication no$'
+    line: PasswordAuthentication yes
+  notify:
+    - Restart SSH Server
+
+- name: Disable X11 Forwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^X11Forwarding yes$'
+    line: X11Forwarding no
+  notify: 
+    - Restart SSH Server
+
+- name: Configure rsyslog for UDP
+  lineinfile:
+    path: /etc/rsyslog.conf
+    regexp: '^\#module\(load=\"imudp\"\)$'
+    line: module(load="imudp")
+  notify: 
+    - Restart rsyslog Server
+
+- name: Configure rsyslog for port 514
+  lineinfile:
+    path: /etc/rsyslog.conf
+    regexp: '^\#input\(type=\"imudp\" port=\"514\"\)$'
+    line: input(type="imudp" port="514")
+  notify: 
+    - Restart rsyslog Server
+

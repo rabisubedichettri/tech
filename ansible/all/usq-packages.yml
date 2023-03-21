@@ -1,0 +1,19 @@
+---
+- name: Install USQ packages
+  package:
+    name:
+      - manpages-dev
+      - build-essential
+      - bash-doc
+      - apt-doc
+      - vim
+      - psmisc
+      - git
+      - rsync
+      - dnsutils
+      - less
+      - info
+      - locate
+      - tldr
+    update-cache: yes
+    state: present
